@@ -1,0 +1,32 @@
+const express = require("express");
+const fs = require("fs");
+const path = require("path")
+const cors = require("cors");
+const cookieParser = require("cookie-parser");
+const audioRoutes = require("./routes/audioRoutes");
+const { connectDb } = require("./config/db");
+
+const app = express();
+
+// need to pass option in cors
+const options = {
+  origin: "http://localhost:5173",
+  credentials: true
+}
+app.use(express.json());
+app.use(cors(options));
+app.use(cookieParser());
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+app.use("/api/v0", audioRoutes);
+
+const PORT = process.env.PORT || 3000;
+connectDb()
+  .then(() => {
+    console.log("DB connected");
+    app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
+    });
+  })
+  .catch((error) => {
+    console.log(error);
+  });
