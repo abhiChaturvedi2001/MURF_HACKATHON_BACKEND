@@ -9,7 +9,7 @@ const uploadPDf = async (req, res) => {
     const filepath = req.file.path;
     const data = await extractData(filepath);
     const getFormatData = await getFormat(data);
-    await saveAudioStreamToFile(getFormatData);
+    await saveAudioStreamToFile(getFormatData, fileName);
     await fileModel.create({ fileName: fileName });
     res.status(200).json({
       message: `pdf convert Successfully`,
