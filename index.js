@@ -10,7 +10,7 @@ const app = express();
 
 // need to pass option in cors
 const options = {
-  origin: "http://localhost:5173",
+  origin: "https://frontend-murf.vercel.app",
   credentials: true
 }
 app.use(express.json());
