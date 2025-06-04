@@ -1,6 +1,6 @@
 const express = require("express");
 const fs = require("fs");
-const path = require("path")
+const path = require("path");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const audioRoutes = require("./routes/audioRoutes");
@@ -12,7 +12,8 @@ const app = express();
 const options = {
   origin: "https://frontend-murf.vercel.app",
   credentials: true
-}
+};
+
 app.use(express.json());
 app.use(cors(options));
 app.use(cookieParser());
@@ -31,14 +32,13 @@ function cleanUploadsFolderCompletely() {
 setInterval(cleanUploadsFolderCompletely, 1000 * 60 * 60);
 app.use("/api/v0", audioRoutes);
 
-const PORT = process.env.PORT || 3000;
+// DO NOT start server here
 connectDb()
   .then(() => {
     console.log("DB connected");
-    app.listen(PORT, () => {
-      console.log(`Server running on port ${PORT}`);
-    });
   })
   .catch((error) => {
     console.log(error);
   });
+
+module.exports = app;
