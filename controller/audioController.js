@@ -24,6 +24,7 @@ const uploadPDf = async (req, res) => {
 const getFileName = async (req, res) => {
   try {
     const files = await fileModel.find();
+    console.log(files);
     return res.status(200).json({
       message: "File data retrieved",
       status: true,
