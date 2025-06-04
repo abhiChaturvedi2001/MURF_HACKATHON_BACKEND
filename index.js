@@ -1,5 +1,6 @@
 const express = require("express");
 const fs = require("fs");
+const fsPromises = require('fs').promises;
 const path = require("path");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
@@ -20,8 +21,8 @@ app.use(cookieParser());
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 const uploadsDir = path.join(__dirname, "uploads");
-function cleanUploadsFolderCompletely() {
-  fs.rm(uploadsDir, { recursive: true, force: true }, (err) => {
+async function cleanUploadsFolderCompletely() {
+  fsPromises.rm(uploadsDir, { recursive: true, force: true }, (err) => {
     if (err) {
       console.error("Failed to delete uploads folder:", err);
     } else {
