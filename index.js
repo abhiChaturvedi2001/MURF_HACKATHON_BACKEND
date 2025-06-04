@@ -32,13 +32,20 @@ function cleanUploadsFolderCompletely() {
 setInterval(cleanUploadsFolderCompletely, 1000 * 60 * 60);
 app.use("/api/v0", audioRoutes);
 
+const port = process.env.PORT
+
 // DO NOT start server here
 connectDb()
   .then(() => {
     console.log("DB connected");
+    app.listen(port, () => {
+      console.log(port);
+    })
   })
   .catch((error) => {
     console.log(error);
   });
 
+
 module.exports = app;
+
